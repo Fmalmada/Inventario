@@ -18,5 +18,10 @@ public class ObjetoServiceImp implements ObjetoService {
     public List<ObjetoDto> getObjetos() {
         return mapper.map(objetoRepository.findAll());
     }
+
+    public ObjetoDto postObjeto(ObjetoDto objetoDto) {
+        objetoRepository.save(mapper.map(objetoDto));
+        return objetoDto;
+    }
     
 }

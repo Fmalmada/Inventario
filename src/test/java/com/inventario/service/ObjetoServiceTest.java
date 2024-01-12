@@ -85,4 +85,16 @@ public class ObjetoServiceTest {
         verify(objetoMapper, times(1)).map(objetos);
 
     }
-}
+
+    @Test
+    void testPostObjeto() {
+        when(objetoMapper.map(objetoADto)).thenReturn(objetoA);
+        when(objetoRepo.save(objetoA)).thenReturn(objetoA);
+
+        assertEquals(objetoService.postObjeto(objetoADto), objetoADto);
+
+        verify(objetoMapper, times(1)).map(objetoADto);
+        verify(objetoRepo, times(1)).save(objetoA);
+
+    }
+ }

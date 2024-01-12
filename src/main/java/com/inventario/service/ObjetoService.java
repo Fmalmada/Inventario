@@ -10,4 +10,6 @@ import com.inventario.dto.ObjetoDto;
 public interface ObjetoService {
     
     public List<ObjetoDto> getObjetos();
+
+    public ObjetoDto postObjeto(ObjetoDto objetoDto);
 }
