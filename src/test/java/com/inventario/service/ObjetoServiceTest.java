@@ -1,6 +1,8 @@
 package com.inventario.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.lang.reflect.Array;
@@ -78,6 +80,9 @@ public class ObjetoServiceTest {
         when(objetoMapper.map(objetos)).thenReturn(objetosDto);
 
         assertEquals(objetoService.getObjetos(), objetosDto);
+
+        verify(objetoRepo,times(1)).findAll();
+        verify(objetoMapper, times(1)).map(objetos);
 
     }
 }
