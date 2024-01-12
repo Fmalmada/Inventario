@@ -76,14 +76,13 @@ public class ObjetoServiceTest {
 
     @Test
     void testGetObjetos() {
-        when(objetoRepo.findAll()).thenReturn(objetos);
         when(objetoMapper.map(objetos)).thenReturn(objetosDto);
+        when(objetoRepo.findAll()).thenReturn(objetos);
 
         assertEquals(objetoService.getObjetos(), objetosDto);
 
-        verify(objetoRepo,times(1)).findAll();
         verify(objetoMapper, times(1)).map(objetos);
-
+        verify(objetoRepo,times(1)).findAll();
     }
 
     @Test
@@ -95,6 +94,5 @@ public class ObjetoServiceTest {
 
         verify(objetoMapper, times(1)).map(objetoADto);
         verify(objetoRepo, times(1)).save(objetoA);
-
     }
  }
