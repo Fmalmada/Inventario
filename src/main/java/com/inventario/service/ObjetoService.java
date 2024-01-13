@@ -16,4 +16,6 @@ public interface ObjetoService {
     public void deleteObjeto(Long id);
 
     public ObjetoDto putObjeto(Long id, ObjetoDto objetoDto);
+
+    public ObjetoDto patchObjeto(Long id, ObjetoDto objetoDto);
 }

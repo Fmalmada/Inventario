@@ -45,4 +45,20 @@ public class ObjetoServiceImp implements ObjetoService {
         return objetoDto;
     }
 
+    public ObjetoDto patchObjeto(Long id, ObjetoDto objetoDto) {
+        Objeto objeto = objetoRepository.findById(id).orElseThrow(RuntimeException::new);
+        
+        if (objetoDto.getNombre() != null) {
+            objeto.setNombre(objetoDto.getNombre());
+        }
+
+        if (objetoDto.getCantidad() != null) {
+            objeto.setCantidad(objetoDto.getCantidad());
+        }
+        
+        objetoRepository.save(objeto);
+
+        return objetoDto;
+    }
+
 }
