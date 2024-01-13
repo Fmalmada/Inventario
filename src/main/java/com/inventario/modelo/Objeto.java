@@ -2,8 +2,6 @@ package com.inventario.modelo;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.Generated;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
