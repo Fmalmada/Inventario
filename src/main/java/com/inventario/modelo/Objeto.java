@@ -19,6 +19,6 @@ public class Objeto {
     private Long id;
     
     private String nombre;
-    private int cantidad;
+    private Integer cantidad;
     
 }

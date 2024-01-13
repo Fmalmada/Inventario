@@ -9,5 +9,5 @@ import lombok.Setter;
 @Builder
 public class ObjetoDto {
     private String nombre;
-    private int cantidad;
+    private Integer cantidad;
 }
