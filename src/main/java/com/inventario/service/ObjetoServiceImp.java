@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.inventario.dto.ObjetoDto;
 import com.inventario.mappers.ObjetoMapper;
+import com.inventario.modelo.Objeto;
 import com.inventario.repository.ObjetoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,18 @@ public class ObjetoServiceImp implements ObjetoService {
             throw(new RuntimeException());      
         }
         objetoRepository.deleteById(id);
+    }
+
+    public ObjetoDto putObjeto(Long id, ObjetoDto objetoDto) {
+        if (!objetoRepository.existsById(id)) {
+            throw(new RuntimeException()); 
+        }
+
+        Objeto objeto = mapper.map(objetoDto);
+        objeto.setId(id);
+
+        objetoRepository.save(objeto);
+        return objetoDto;
     }
 
 }

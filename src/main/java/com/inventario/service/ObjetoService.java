@@ -14,4 +14,6 @@ public interface ObjetoService {
     public ObjetoDto postObjeto(ObjetoDto objetoDto);
 
     public void deleteObjeto(Long id);
+
+    public ObjetoDto putObjeto(Long id, ObjetoDto objetoDto);
 }

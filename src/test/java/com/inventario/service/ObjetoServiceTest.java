@@ -119,4 +119,26 @@ public class ObjetoServiceTest {
 
         verify(objetoRepo, times(1)).existsById(id);
     }
+
+    @Test
+    void testPutObjeto() {
+        when(objetoRepo.existsById(id)).thenReturn(true);
+        when(objetoMapper.map(objetoADto)).thenReturn(objetoA);
+        when(objetoRepo.save(objetoA)).thenReturn(objetoA);
+
+        assertEquals(objetoService.putObjeto(id, objetoADto), objetoADto);
+
+        verify(objetoRepo, times(1)).existsById(id);
+        verify(objetoMapper, times(1)).map(objetoADto);
+        verify(objetoRepo, times(1)).save(objetoA);
+    }
+
+    @Test
+    void testPutObjetoNoExiste() {
+        when(objetoRepo.existsById(id)).thenReturn(false);
+        
+        assertThrows(RuntimeException.class, () -> {objetoService.putObjeto(id,objetoADto);});
+
+        verify(objetoRepo, times(1)).existsById(id);
+    }
  }
