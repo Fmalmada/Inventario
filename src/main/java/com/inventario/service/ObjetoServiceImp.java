@@ -26,13 +26,10 @@ public class ObjetoServiceImp implements ObjetoService {
 
     @Override
     public void deleteObjeto(Long id) {
-        if (objetoRepository.existsById(id)){
-            objetoRepository.deleteById(id);      
+        if (!objetoRepository.existsById(id)){
+            throw(new RuntimeException());      
         }
-
-        else {
-            throw(new RuntimeException());
-        }
+        objetoRepository.deleteById(id);
     }
-    
+
 }
