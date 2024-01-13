@@ -23,5 +23,16 @@ public class ObjetoServiceImp implements ObjetoService {
         objetoRepository.save(mapper.map(objetoDto));
         return objetoDto;
     }
+
+    @Override
+    public void deleteObjeto(Long id) {
+        if (objetoRepository.existsById(id)){
+            objetoRepository.deleteById(id);      
+        }
+
+        else {
+            throw(new RuntimeException());
+        }
+    }
     
 }

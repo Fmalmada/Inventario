@@ -1,6 +1,8 @@
 package com.inventario.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -44,6 +46,8 @@ public class ObjetoServiceTest {
     private List<Objeto> objetos;
     private List<ObjetoDto> objetosDto;
 
+    private Long id;
+
     @BeforeEach
     void setUp() {
 
@@ -70,6 +74,8 @@ public class ObjetoServiceTest {
         objetos = Arrays.asList(objetoA, objetoB);
 
         objetosDto = Arrays.asList(objetoADto, objetoBDto);
+
+        id = Long.valueOf(1);
     }
 
     @Test
@@ -92,5 +98,25 @@ public class ObjetoServiceTest {
 
         verify(objetoMapper, times(1)).map(objetoADto);
         verify(objetoRepo, times(1)).save(objetoA);
+    }
+
+    @Test
+    void testDeleteObjeto() {
+        when(objetoRepo.existsById(id)).thenReturn(true);
+        doNothing().when(objetoRepo).deleteById(id);
+
+        objetoService.deleteObjeto(id);
+
+        verify(objetoRepo, times(1)).existsById(id);
+        verify(objetoRepo, times(1)).deleteById(id);
+    }
+
+    @Test
+    void testDeleteObjetoQueNoExiste() {
+        when(objetoRepo.existsById(id)).thenReturn(false);
+        
+        assertThrows(RuntimeException.class, () -> {objetoService.deleteObjeto(id);});
+
+        verify(objetoRepo, times(1)).existsById(id);
     }
  }
