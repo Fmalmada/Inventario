@@ -141,4 +141,15 @@ public class ObjetoServiceTest {
 
         verify(objetoRepo, times(1)).existsById(id);
     }
+
+    @Test
+    void testGetObjetosPorNombre() {
+        when(objetoRepo.findByNombreContaining("objeto")).thenReturn(objetos);
+        when(objetoMapper.map(objetos)).thenReturn(objetosDto);
+
+        assertEquals(objetoService.getObjetosContiene("objeto"), objetosDto);
+
+        verify(objetoRepo, times(1)).findByNombreContaining("objeto");
+        verify(objetoMapper, times(1)).map(objetos);
+    }
  }
