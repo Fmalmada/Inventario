@@ -18,4 +18,6 @@ public interface ObjetoService {
     public ObjetoDto putObjeto(Long id, ObjetoDto objetoDto);
 
     public ObjetoDto patchObjeto(Long id, ObjetoDto objetoDto);
+
+    public List<ObjetoDto> getObjetosContiene(String nombre);
 }
