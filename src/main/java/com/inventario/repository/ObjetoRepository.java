@@ -8,7 +8,7 @@ import com.inventario.modelo.Objeto;
 
 public interface ObjetoRepository extends JpaRepository<Objeto, Long> {
 
-    public List<Objeto> findByNameContaining(String nombre);
+    public List<Objeto> findByNombreContaining(String nombre);
     
     
 }

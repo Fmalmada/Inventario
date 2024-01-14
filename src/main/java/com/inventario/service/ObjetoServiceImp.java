@@ -62,7 +62,7 @@ public class ObjetoServiceImp implements ObjetoService {
     }
 
     public List<ObjetoDto> getObjetosContiene(String nombre) {
-        return mapper.map(objetoRepository.findByNameContaining(nombre));
+        return mapper.map(objetoRepository.findByNombreContaining(nombre));
     }
 
 }
