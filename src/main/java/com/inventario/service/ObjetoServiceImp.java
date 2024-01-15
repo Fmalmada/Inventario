@@ -2,6 +2,8 @@ package com.inventario.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.inventario.dto.ObjetoDto;
 import com.inventario.mappers.ObjetoMapper;
 import com.inventario.modelo.Objeto;
@@ -9,6 +11,7 @@ import com.inventario.repository.ObjetoRepository;
 
 import lombok.RequiredArgsConstructor;
 
+@Service
 @RequiredArgsConstructor
 public class ObjetoServiceImp implements ObjetoService {
 
