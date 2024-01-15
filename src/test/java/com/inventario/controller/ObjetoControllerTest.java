@@ -12,8 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.inventario.dto.ObjetoDto;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,5 +42,22 @@ public class ObjetoControllerTest {
 
                 .andExpect(jsonPath("$[1].nombre", is("objeto B")))
                 .andExpect(jsonPath("$[1].cantidad", is(15)));    
+    }
+
+    @Test
+    void postObjeto() throws Exception {
+        ObjetoDto objetoPost = ObjetoDto.builder()
+                                        .nombre("objeto de test")
+                                        .cantidad(10)
+                                        .build();
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/inventario")
+                                                .content(mapper.writeValueAsString(objetoPost))
+                                                .contentType(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().isCreated())
+                        .andExpect(MockMvcResultMatchers
+                                    .content()
+                                    .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 }

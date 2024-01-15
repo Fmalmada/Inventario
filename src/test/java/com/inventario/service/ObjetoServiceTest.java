@@ -52,6 +52,7 @@ public class ObjetoServiceTest {
     void setUp() {
 
         objetoA = Objeto.builder()
+                            .id(Long.valueOf(1))
                             .nombre("objeto A")
                             .cantidad(3)
                             .build();
@@ -62,6 +63,7 @@ public class ObjetoServiceTest {
                                 .build();
         
         objetoB =  Objeto.builder()
+                            .id(Long.valueOf(2))
                             .nombre("objeto B")
                             .cantidad(8)
                             .build();
@@ -75,7 +77,7 @@ public class ObjetoServiceTest {
 
         objetosDto = Arrays.asList(objetoADto, objetoBDto);
 
-        id = Long.valueOf(1);
+        id = objetoA.getId();
     }
 
     @Test
@@ -94,7 +96,7 @@ public class ObjetoServiceTest {
         when(objetoMapper.map(objetoADto)).thenReturn(objetoA);
         when(objetoRepo.save(objetoA)).thenReturn(objetoA);
 
-        assertEquals(objetoService.postObjeto(objetoADto), objetoADto);
+        assertEquals(objetoService.postObjeto(objetoADto), id);
 
         verify(objetoMapper, times(1)).map(objetoADto);
         verify(objetoRepo, times(1)).save(objetoA);

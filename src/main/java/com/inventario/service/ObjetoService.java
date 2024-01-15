@@ -11,7 +11,7 @@ public interface ObjetoService {
     
     public List<ObjetoDto> getObjetos();
 
-    public ObjetoDto postObjeto(ObjetoDto objetoDto);
+    public Long postObjeto(ObjetoDto objetoDto);
 
     public void deleteObjeto(Long id);
 
