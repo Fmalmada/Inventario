@@ -60,4 +60,46 @@ public class ObjetoControllerTest {
                                     .content()
                                     .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
+
+    @Test
+    void deleteObjeto() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.delete("/inventario/1") 
+                                                .contentType(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void putObjeto() throws Exception {
+        ObjetoDto objetoPost = ObjetoDto.builder()
+                                        .nombre("objeto de test")
+                                        .cantidad(10)
+                                        .build();
+        mockMvc.perform(
+                        MockMvcRequestBuilders.put("/inventario/1")
+                                                .content(mapper.writeValueAsString(objetoPost))
+                                                .contentType(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().isOk())
+                        .andExpect(MockMvcResultMatchers
+                                    .content()
+                                    .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void patchObjeto() throws Exception{
+        ObjetoDto objetoPost = ObjetoDto.builder()
+                                        .cantidad(10)
+                                        .build();
+        mockMvc.perform(
+                        MockMvcRequestBuilders.patch("/inventario/1")
+                                                .content(mapper.writeValueAsString(objetoPost))
+                                                .contentType(MediaType.APPLICATION_JSON)
+                        )
+                        .andExpect(status().isOk())
+                        .andExpect(MockMvcResultMatchers
+                                    .content()
+                                    .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
 }
