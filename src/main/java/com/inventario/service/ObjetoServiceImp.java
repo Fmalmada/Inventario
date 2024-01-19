@@ -9,6 +9,7 @@ import com.inventario.mappers.ObjetoMapper;
 import com.inventario.modelo.Objeto;
 import com.inventario.repository.ObjetoRepository;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -19,13 +20,20 @@ public class ObjetoServiceImp implements ObjetoService {
     private final ObjetoMapper mapper;
     
     @Override
-    public List<ObjetoDto> getObjetos() {
-        return mapper.map(objetoRepository.findAll());
+    public List<ObjetoDto> getObjetos(String nombre) {
+        if (StringUtils.isEmpty(nombre)){
+            return mapper.map(objetoRepository.findAll());
+        }
+        return mapper.map(objetoRepository.findByNombreContaining(nombre));
     }
 
     public Long postObjeto(ObjetoDto objetoDto) {
         return objetoRepository.save(mapper.map(objetoDto)).getId();
     }
+
+    public ObjetoDto getObjetoPorId(Long id) {
+        return mapper.map(objetoRepository.findById(id).orElseThrow(RuntimeException::new));
+    } 
 
     @Override
     public void deleteObjeto(Long id) {
@@ -61,10 +69,6 @@ public class ObjetoServiceImp implements ObjetoService {
         objetoRepository.save(objeto);
 
         return objetoDto;
-    }
-
-    public List<ObjetoDto> getObjetosContiene(String nombre) {
-        return mapper.map(objetoRepository.findByNombreContaining(nombre));
     }
 
 }

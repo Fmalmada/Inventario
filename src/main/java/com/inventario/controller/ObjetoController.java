@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriBuilder;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -29,8 +30,8 @@ public class ObjetoController {
     private final ObjetoService objetoService;
 
     @GetMapping()
-    public ResponseEntity<List<ObjetoDto>> getObjetos() {
-        return ResponseEntity.ok().body(objetoService.getObjetos());
+    public ResponseEntity<List<ObjetoDto>> getObjetos(@RequestParam(required=false) String nombre) {
+        return ResponseEntity.ok().body(objetoService.getObjetos(nombre));
     }
 
     @PostMapping()
@@ -55,7 +56,11 @@ public class ObjetoController {
     @PatchMapping("/{id}")
     public ResponseEntity<ObjetoDto> patchObjeto(@PathVariable Long id, @RequestBody ObjetoDto objetoDto) {
         return ResponseEntity.ok().body(objetoService.patchObjeto(id, objetoDto));
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ObjetoDto> getObjetoPorId(@PathVariable Long id) {
+        return ResponseEntity.ok().body(objetoService.getObjetoPorId(id));
     }
 
     

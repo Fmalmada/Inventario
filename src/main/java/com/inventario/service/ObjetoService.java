@@ -9,7 +9,9 @@ import com.inventario.dto.ObjetoDto;
 @Service
 public interface ObjetoService {
     
-    public List<ObjetoDto> getObjetos();
+    public List<ObjetoDto> getObjetos(String nombre);
+
+    public ObjetoDto getObjetoPorId(Long id);
 
     public Long postObjeto(ObjetoDto objetoDto);
 
@@ -18,6 +20,4 @@ public interface ObjetoService {
     public ObjetoDto putObjeto(Long id, ObjetoDto objetoDto);
 
     public ObjetoDto patchObjeto(Long id, ObjetoDto objetoDto);
-
-    public List<ObjetoDto> getObjetosContiene(String nombre);
 }

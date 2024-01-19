@@ -17,8 +17,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inventario.dto.ObjetoDto;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ObjetoControllerTest {
 
     @Autowired
@@ -101,5 +104,35 @@ public class ObjetoControllerTest {
                         .andExpect(MockMvcResultMatchers
                                     .content()
                                     .contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getObjetoPorNombre() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/inventario")
+                        .queryParam("nombre", "objeto")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        )
+                .andExpect(status().isOk())
+
+                .andExpect(jsonPath("$", hasSize(2)))
+                
+                .andExpect(jsonPath("$[0].nombre", is("objeto A")))
+                .andExpect(jsonPath("$[0].cantidad", is(10)))
+
+                .andExpect(jsonPath("$[1].nombre", is("objeto B")))
+                .andExpect(jsonPath("$[1].cantidad", is(15))); 
+    }
+
+    @Test
+    void getObjetoPorId() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/inventario/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        )
+            .andExpect(status().isOk())
+    
+            .andExpect(jsonPath("$.nombre", is("objeto A")))
+            .andExpect(jsonPath("$.cantidad", is(10)));
     }
 }

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,10 +86,20 @@ public class ObjetoServiceTest {
         when(objetoMapper.map(objetos)).thenReturn(objetosDto);
         when(objetoRepo.findAll()).thenReturn(objetos);
 
-        assertEquals(objetoService.getObjetos(), objetosDto);
+        assertEquals(objetoService.getObjetos(null), objetosDto);
 
         verify(objetoMapper, times(1)).map(objetos);
         verify(objetoRepo,times(1)).findAll();
+    }
+
+    @Test
+    void getObjetoPorId() {
+        when(objetoRepo.findById(id)).thenReturn(Optional.of(objetoA));
+        when(objetoMapper.map(objetoA)).thenReturn(objetoADto);
+        assertEquals(objetoService.getObjetoPorId(id), objetoADto);
+
+        verify(objetoRepo, times(1)).findById(id);
+        verify(objetoMapper, times(1)).map(objetoA);
     }
 
     @Test
@@ -149,7 +160,7 @@ public class ObjetoServiceTest {
         when(objetoRepo.findByNombreContaining("objeto")).thenReturn(objetos);
         when(objetoMapper.map(objetos)).thenReturn(objetosDto);
 
-        assertEquals(objetoService.getObjetosContiene("objeto"), objetosDto);
+        assertEquals(objetoService.getObjetos("objeto"), objetosDto);
 
         verify(objetoRepo, times(1)).findByNombreContaining("objeto");
         verify(objetoMapper, times(1)).map(objetos);
