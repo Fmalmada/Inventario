@@ -17,6 +17,10 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.inventario.dto.ObjetoDto;
+import com.inventario.permisos.PermisoCrearObjeto;
+import com.inventario.permisos.PermisoEditarObjeto;
+import com.inventario.permisos.PermisoEliminarObjeto;
+import com.inventario.permisos.PermisoLeerObjeto;
 import com.inventario.service.ObjetoService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,11 +32,13 @@ public class ObjetoController {
     
     private final ObjetoService objetoService;
 
+    @PermisoLeerObjeto
     @GetMapping()
     public ResponseEntity<List<ObjetoDto>> getObjetos(@RequestParam(required=false) String nombre) {
         return ResponseEntity.ok().body(objetoService.getObjetos(nombre));
     }
 
+    @PermisoCrearObjeto
     @PostMapping()
     public ResponseEntity<ObjetoDto> postObjeto(@RequestBody ObjetoDto objetoDto, UriComponentsBuilder uriBuilder) {
         UriComponents uriComponents =  uriBuilder.path("/inventario/{id}")
@@ -41,22 +47,26 @@ public class ObjetoController {
         return ResponseEntity.created(uriComponents.toUri()).body(objetoDto);
     }
 
+    @PermisoEliminarObjeto
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteObjeto(@PathVariable Long id) {
         objetoService.deleteObjeto(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PermisoEditarObjeto
     @PutMapping("/{id}")
     public ResponseEntity<ObjetoDto> putObjeto(@PathVariable Long id, @RequestBody ObjetoDto objetoDto) {
         return ResponseEntity.ok().body(objetoService.putObjeto(id, objetoDto));
     }
 
+    @PermisoEditarObjeto
     @PatchMapping("/{id}")
     public ResponseEntity<ObjetoDto> patchObjeto(@PathVariable Long id, @RequestBody ObjetoDto objetoDto) {
         return ResponseEntity.ok().body(objetoService.patchObjeto(id, objetoDto));
     }
 
+    @PermisoLeerObjeto
     @GetMapping("/{id}")
     public ResponseEntity<ObjetoDto> getObjetoPorId(@PathVariable Long id) {
         return ResponseEntity.ok().body(objetoService.getObjetoPorId(id));

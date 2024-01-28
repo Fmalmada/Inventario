@@ -32,7 +32,7 @@ public class InventarioConfig {
         Autoridad crearObjeto = autoRepo.save(Autoridad.builder().permiso("objeto.crear").build());
         Autoridad leerObjeto = autoRepo.save(Autoridad.builder().permiso("objeto.leer").build());
         Autoridad editarObjeto = autoRepo.save(Autoridad.builder().permiso("objeto.editar").build());
-        Autoridad eliminarObjeto = autoRepo.save(Autoridad.builder().permiso("objeto.editar").build());
+        Autoridad eliminarObjeto = autoRepo.save(Autoridad.builder().permiso("objeto.eliminar").build());
 
         Rol admin = rolRepo.save(Rol.builder().nombre("ADMIN").build());
         Rol cliente = rolRepo.save(Rol.builder().nombre("CLIENTE").build());
